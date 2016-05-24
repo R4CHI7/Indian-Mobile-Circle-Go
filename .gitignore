@@ -22,3 +22,7 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Unit test coverage data.
+cover.out
+cover.html

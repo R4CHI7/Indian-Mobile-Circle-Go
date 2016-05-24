@@ -7,6 +7,7 @@ import (
 )
 
 var mobileNumberData map[string][]string
+var Debug bool = true
 
 func init() {
 	mobileNumberData = make(map[string][]string)
@@ -2625,9 +2626,13 @@ func init() {
 */
 func GetMobileNumberData(number string) []string {
 	l := log.New(os.Stdout, "[IMCG] ", log.Ldate|log.Ltime)
-	l.Println("Processing number:", number)
+	if Debug {
+		l.Println("Processing number:", number)
+	}
 	if len(number) < 10 || len(number) > 13 {
-		l.Println("Exiting due to improper length of the number")
+		if Debug {
+			l.Println("Exiting due to improper length of the number")
+		}
 		return nil
 	}
 
@@ -2640,7 +2645,9 @@ func GetMobileNumberData(number string) []string {
 			prefix1 = number[2:5]
 			prefix2 = number[2:6]
 		} else {
-			l.Println("Exiting due to improper number")
+			if Debug {
+				l.Println("Exiting due to improper number")
+			}
 			return nil
 		}
 	} else {
@@ -2649,13 +2656,19 @@ func GetMobileNumberData(number string) []string {
 	}
 
 	if data, found := mobileNumberData[prefix1]; found {
-		l.Println("Found data:", data)
+		if Debug {
+			l.Println("Found data:", data)
+		}
 		return data
 	} else if data, found := mobileNumberData[prefix2]; found {
-		l.Println("Found data:", data)
+		if Debug {
+			l.Println("Found data:", data)
+		}
 		return data
 	} else {
-		l.Println("Data not found")
+		if Debug {
+			l.Println("Data not found")
+		}
 		return nil
 	}
 
